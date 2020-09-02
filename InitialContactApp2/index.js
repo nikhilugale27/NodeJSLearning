@@ -45,10 +45,24 @@ var contactList = [
 
 app.get('/', function(req, res){
     // console.log('The Name received from Middleware 2 in home loading is ', req.myName);
-    return res.render('home', {
+    /*return res.render('home', {
         title: 'Contact List',
         contact_list: contactList
     });
+    */
+
+    Contact.find({}, function(err, contacts){
+        if(err){
+            console.log("error in fetching contacts from db");
+            return;
+        }
+        return res.render('home',{
+            title: "Contact List",
+            contact_list: contacts
+        });
+
+    })
+
 });
 
 app.get('/practice', function(req, res){
