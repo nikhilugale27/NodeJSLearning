@@ -1,0 +1,11 @@
+{
+  "name": "majorproject1-socialwebsite",
+  "version": "1.0.0",
+  "description": "This my Social Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikhil Ugale",
+  "license": "ISC"
+}
