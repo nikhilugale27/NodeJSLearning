@@ -1,9 +1,11 @@
 const express = require('express');
+const port = 9000;
+const app = express();
 
 // use express router
 app.use('/', require('./routes'));
 
-const port = 9000;
+
 
 app.listen(port, function(err){
     if(err){
