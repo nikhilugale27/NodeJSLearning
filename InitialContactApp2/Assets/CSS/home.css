@@ -18,7 +18,7 @@ body
 
 #contact-table
 {
-    width: 400px;
+    width: 500px;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid grey;
@@ -33,6 +33,11 @@ body
     background-color: royalblue;
     padding : 3px;
     border: 2px solid white;
+}
+
+#contact-icon
+{
+    padding: 3px;
 }
 
 #contact-row:hover {
