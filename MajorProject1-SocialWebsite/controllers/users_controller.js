@@ -1,9 +1,22 @@
 const User = require('../models/user');
 
 module.exports.profile = function(req,res){
-    return res.render('user_profile', {
-        title: "User Profile"
-    });
+    if (req.cookies.user_id){
+        User.findById(req.cookies.user_id, function(err, user){
+            if (user){
+                return res.render('user_profile', {
+                    title: "User Profile",
+                    user: user
+                })
+            }else{
+                return res.redirect('/users/sign-in');
+
+            }
+        });
+    }else{
+        return res.redirect('/users/sign-in');
+
+    }
 }
 
 //render the Sign Up Page
@@ -64,7 +77,15 @@ module.exports.createSession = function(req,res){
             return res.redirect('/users/profile');
         }
         else{
-            return res.redirect('back');
+            return res.redirect('/users/sign-up');
         }
      });
+}
+
+//Sign In and create a session for the User
+module.exports.signOutSession = function(req,res){
+    //delete the user_id from the cookie 
+    res.clearCookie('user_id');
+    console.log('Cookie Cleared.')
+    return res.redirect('/users/sign-in');
 }
