@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 module.exports.profile = function(req,res){
     return res.render('user_profile', {
-        title: "User Profile"
+        title: req.user.name
     });
 }
 
@@ -22,7 +22,7 @@ module.exports.signUp = function(req,res){
 module.exports.signIn = function(req,res){
     //If already logged in redirect to profile page
     if(req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('/');
     }
 
     return res.render('user_sign_in',{
@@ -60,5 +60,11 @@ module.exports.createUser = function(req,res){
 
 //Sign In and create a session for the User
 module.exports.createSession = function(req,res){
-    return res.redirect('/users/profile');
+    return res.redirect('/');
+}
+
+//Sign In and create a session for the User
+module.exports.destroySession = function(req,res){
+    req.logout();
+    return res.redirect('/');
 }
