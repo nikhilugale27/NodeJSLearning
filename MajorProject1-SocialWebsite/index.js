@@ -17,8 +17,8 @@ const sassMiddleWare = require('node-sass-middleware');
 
 //set up the SCSS Middleware
 app.use(sassMiddleWare({
-    src:'/assets/scss',
-    dest:'/assets/css',
+    src:'./assets/scss',
+    dest:'./assets/css',
     debug: true,
     outputStyle: 'extended',
     prefix: '/css'

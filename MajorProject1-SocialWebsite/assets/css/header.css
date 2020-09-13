@@ -1,0 +1,23 @@
+header {
+  display: flex;
+  width: 100%;
+  height: 10%;
+  background-color: #2bafc0; }
+  header #logo {
+    color: white;
+    margin: 0;
+    text-transform: capitalize; }
+  header #login-options {
+    display: flex;
+    position: absolute;
+    right: 0; }
+    header #login-options ul li {
+      display: inline;
+      padding: 10px; }
+      header #login-options ul li a {
+        font-size: 1.5rem;
+        color: white;
+        text-decoration: none; }
+      header #login-options ul li a:hover {
+        text-decoration: none;
+        color: orange; }
