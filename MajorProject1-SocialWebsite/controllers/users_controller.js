@@ -1,8 +1,11 @@
 const User = require('../models/user');
 
 module.exports.profile = function(req,res){
-    return res.render('user_profile', {
-        title: req.user.name
+    User.findById(req.params.id, function(err, user){
+        return res.render('user_profile', {
+            title: user.name,
+            profile_user: user
+        });
     });
 }
 
