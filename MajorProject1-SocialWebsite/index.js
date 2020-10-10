@@ -36,6 +36,9 @@ app.use(cookieParser());
 //setting up the static assets
 app.use(express.static('./assets'));
 
+//setting up the avatars folder
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 //use the layout
 app.use(expressLayouts);
 
