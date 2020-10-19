@@ -10,9 +10,9 @@ module.exports.createSession = async function(req, res){
 
         if (!user || user.password != req.body.password){
             return res.json(422, {
-                message: "Invalid username or password"
+                message: "Invalid Username or Password"
             });
-        }
+        } 
 
         return res.json(200, {
             message: 'Sign in successful, here is your token, please keep it safe!',
