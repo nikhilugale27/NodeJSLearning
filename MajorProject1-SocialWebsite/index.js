@@ -13,6 +13,8 @@ const passportJWT = require('./config/passport-jwt-strategy');
 
 const MongoStore = require('connect-mongo')(session);
 
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
+
 //use the scss middleware
 const sassMiddleWare = require('node-sass-middleware');
 
