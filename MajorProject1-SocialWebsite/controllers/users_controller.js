@@ -1,7 +1,11 @@
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
-
+const resetPass = require('../models/resetPassword');
+const crypto = require('crypto');
+const resetPasswordData = require('../models/resetPassword');
+const resetPasswordMailer = require('../mailers/reset_password_mailer');
+const queue = require('../config/kue');
 
 module.exports.profile = function(req,res){
     User.findById(req.params.id, function(err, user){
@@ -76,7 +80,6 @@ module.exports.signUp = function(req, res){
         return res.redirect('/users/profile');
     }
 
-
     return res.render('user_sign_up', {
         title: "Codeial | Sign Up"
     })
@@ -131,4 +134,129 @@ module.exports.destroySession = function(req, res){
 
 
     return res.redirect('/');
+}
+
+// reset password render page
+module.exports.resetPassword = function(req, res){
+    return res.render('user_pass_reset', {      
+        title: "Codeial | Reset Password"
+    })
+}
+
+//send the reset password link to user mail
+module.exports.sendResetPasswordLink = async function(req, res)
+{
+    try
+    {
+        //check if the user is there or not
+        let user = await User.findOne({email: req.body.email});
+
+        if(!user){
+            req.flash('error', 'No user with provided email id.')
+            return res.redirect('back');
+        }
+        else{
+            let acessID = crypto.randomBytes(20).toString('hex');
+
+            //create the accessID for the user
+            let resetData = await resetPasswordData.create({
+                user: user,
+                acessToken: acessID,
+                isValid : true 
+            });
+            
+            // Similar for comments to fetch the user's id!
+            resetData = await resetData.populate('user', 'name email').execPopulate();
+                            
+            console.log(resetData);
+
+            //reset password link generated and send the mail
+            resetPasswordMailer.newReset(resetData);
+
+            req.flash('success', 'Reset Link is Sent.');
+            return res.redirect('/users/sign-in');
+        }
+    }catch(err){
+        req.flash('error', err);
+        return;
+    }
+}
+
+//render confirm password page
+module.exports.confirmPassword = async function(req, res){
+    try{
+        console.log(req.params.accessID);
+        let accessToken = req.params.accessID;
+
+        //check if the reset link is valid
+        let accessRecord = await resetPasswordData.findOne({acessToken: accessToken});
+
+        if(!accessRecord){
+            req.flash('error', 'Invalid Reset Link. Please generate new Reset Link.');
+            return res.redirect('/users/sign-in');
+        }
+        else if(!accessRecord.isValid){
+            req.flash('error', 'Reset Link Expired Or Password Already Updated. Please generate new Reset Link.');
+            return res.redirect('/users/sign-in');
+        }
+        else{
+            return res.render('user_pass_confirm', {title: "Codeial | Confirm Password", accessToken: accessToken});
+        }
+    }catch(err){
+        req.flash('error', err);
+        return;
+    }  
+}
+
+module.exports.updateResetPassword = async function(req, res)
+{
+    console.log(req.body.password);
+    console.log(req.body.confirm_password);
+    console.log(req.params.accessID);
+    try{
+
+        //check if password and confirm password matches or not
+        if (req.body.password != req.body.confirm_password){
+            req.flash('error', 'Passwords do not match');
+            return res.redirect('back');
+        }
+
+        //check if the reset link is valid
+        let accessRecord = await resetPasswordData.findOne({acessToken: req.params.accessID});
+        console.log(accessRecord);
+
+        if(!accessRecord){
+            req.flash('error', 'Invalid Reset Link. Please generate new Reset Link.');
+            return res.redirect('/users/sign-in');
+        }
+        else if(!accessRecord.isValid){
+            req.flash('error', 'Reset Link Expired Or Password Already Updated. Please generate new Reset Link.');
+            return res.redirect('/users/sign-in');
+        }
+        else{
+
+            //change the password in Users Document
+            let user_id = accessRecord.user;
+            console.log('User_id' , user_id);
+
+            let user = await User.findById(user_id);
+            console.log('User Data :' , user);
+
+            if(user)
+            {
+                user.password = req.body.password;
+                user.save();
+
+                accessRecord.isValid = false;
+                accessRecord.save();
+
+                req.flash('success', 'Password Updated Successfully. Please Sign In with New Credentials.');
+            } 
+            return res.redirect('/users/sign-in');
+        }
+    }
+    catch(err){
+        req.flash('error', err);
+        return;
+    }   
 }
