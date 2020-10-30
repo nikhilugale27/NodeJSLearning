@@ -42,6 +42,9 @@ app.use(express.static('./assets'));
 //setting up the avatars folder
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+//setting up the icons folder
+app.use('/icons', express.static(__dirname + '/icons'));
+
 //use the layout
 app.use(expressLayouts);
 
