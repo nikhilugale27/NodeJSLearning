@@ -12,8 +12,18 @@
                 <%= comment.user.name %>
             </small>
             <br>
-            <i class="far fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
-            <i class="fas fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+            <!-- CHANGE :: display the likes of this comment, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+            <!-- study about the data attribute -->
+            <small>
+                <% if (locals.user){ %>
+                    <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                            <%= comment.likes.length %><i class="far fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+                            <i class="fas fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+                    </a>
+                <% }else{ %>
+                    <%= comment.likes.length %><i class="far fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+                <% } %>
+            </small>
         </p>
         
 </li>

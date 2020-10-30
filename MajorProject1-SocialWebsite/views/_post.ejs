@@ -11,8 +11,19 @@
             <%= post.user.name %>
         </small>
         <br>
-        <i class="far fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
-        <i class="fas fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+        <!-- CHANGE :: display the likes of this post, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+        <br>
+            <!-- study about the data attribute -->
+        <small>
+            <% if (locals.user){ %>
+                <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                        <%= post.likes.length %><i class="far fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+                        <i class="fas fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+                </a>
+            <% }else{ %>
+                <%= post.likes.length %><i class="far fa-thumbs-up" style="color:rgb(70, 118, 180)"></i>
+            <% } %>
+        </small>
     </p>
     <div class="post-comments">
         <% if (locals.user){ %>
