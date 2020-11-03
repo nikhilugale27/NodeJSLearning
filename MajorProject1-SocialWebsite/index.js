@@ -37,7 +37,7 @@ app.use(sassMiddleWare({
 }));
 
 //set up for POST Requests
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 //set up the cookie Parser
 app.use(cookieParser());
