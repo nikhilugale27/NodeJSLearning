@@ -7,3 +7,17 @@
 ::1 - - [08/Nov/2020:17:04:50 +0000] "GET / HTTP/1.1" 200 4378 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36"
 ::1 - - [08/Nov/2020:17:04:58 +0000] "GET /users/sign-out HTTP/1.1" 302 46 "http://localhost:9000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36"
 ::1 - - [08/Nov/2020:17:04:58 +0000] "GET / HTTP/1.1" 200 3620 "http://localhost:9000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36"
+[0mGET / [32m200[0m 2412.808 ms - 6676[0m
+[0mGET /favicon.ico [33m404[0m 224.742 ms - 150[0m
+[0mGET /users/sign-in [36m304[0m 4.379 ms - -[0m
+[0mPOST /users/create-session [36m302[0m 68.684 ms - 46[0m
+[0mGET / [32m200[0m 38.663 ms - 10328[0m
+[0mGET /users/sign-out [36m302[0m 5.112 ms - 46[0m
+[0mGET / [32m200[0m 62.462 ms - 6974[0m
+::1 - - [11/Nov/2020:16:00:33 +0000] "GET / HTTP/1.1" 200 3322 "http://localhost:9000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36"
+::1 - - [11/Nov/2020:16:00:38 +0000] "GET /users/sign-in HTTP/1.1" 304 - "http://localhost:9000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36"
+::1 - - [11/Nov/2020:16:00:39 +0000] "GET /users/auth/google HTTP/1.1" 302 0 "http://localhost:9000/users/sign-in" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36"
+::1 - - [11/Nov/2020:16:00:56 +0000] "GET /users/auth/google/callback?code=4%2F0AY0e-g6amSCImbuV_IfcxWxXyaxMfZjM0x0SJ_6rEB4QI5EkykeQsIM7Xg1L7KQm0mWkuA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=consent HTTP/1.1" 302 46 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36"
+::1 - - [11/Nov/2020:16:00:56 +0000] "GET / HTTP/1.1" 200 4378 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36"
+::1 - - [11/Nov/2020:16:01:07 +0000] "GET /users/sign-out HTTP/1.1" 302 46 "http://localhost:9000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36"
+::1 - - [11/Nov/2020:16:01:07 +0000] "GET / HTTP/1.1" 200 4078 "http://localhost:9000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36"
